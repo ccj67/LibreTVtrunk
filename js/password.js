@@ -60,6 +60,12 @@ async function verifyPassword(password) {
             passwordHash: correctHash // 保存当前密码的哈希值
         };
         localStorage.setItem(PASSWORD_CONFIG.localStorageKey, JSON.stringify(verificationData));
+
+        // Store non-adult API keys
+        if (window.API_SITES) {
+            const allNonAdultApiKeys = Object.keys(window.API_SITES).filter(key => !window.API_SITES[key].adult);
+            localStorage.setItem('selectedAPIs', JSON.stringify(allNonAdultApiKeys));
+        }
     }
     return isValid;
 }
